@@ -1,0 +1,77 @@
+# Verzija 1 
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    
+    def append(self, data):
+        novi = Node(data)
+        if self.head is None:
+            self.head = novi
+            self.tail = novi
+            return
+        novi.prev = self.tail
+        self.tail.next = novi
+        self.tail = novi
+    
+    def stampa_normalno(self):
+        t = self.head
+        elementi = []
+        while t is not None:
+            elementi.append(str(t.data))
+            t = t.next
+        print(" <-> ".join(elementi) if elementi else "(prazna lista)")
+    
+    def prizbaciN(self, N):
+        # Granični slučajevi
+        if N <= 0 or self.head is None:
+            return 0
+        izbaceno = 0
+        trenutni = self.tail
+        while izbaceno < N and trenutni is not None:
+            trenutni = trenutni.prev  
+            izbaceno += 1
+        if trenutni is None:
+            self.head = None
+            self.tail = None
+        else:
+            self.tail = trenutni
+            self.tail.next = None       
+        return izbaceno
+
+
+# Verzija 2
+def prizbaciN(head, tail, N):
+    if N <= 0 or head is None:
+        return head, tail, 0
+    
+    izbaceno = 0
+    trenutni = tail
+    
+    while izbaceno < N and trenutni is not None:
+        trenutni = trenutni.prev
+        izbaceno += 1
+    
+    if trenutni is None:
+        return None, None, izbaceno    
+    
+    trenutni.next = None                
+    return head, trenutni, izbaceno
+lista = DoublyLinkedList()
+for x in [10, 20, 30, 40, 50]:
+    lista.append(x)
+
+print("Prije:")
+lista.stampa_normalno()               
+
+izbaceno = lista.prizbaciN(2)
+print(f"Poslije izbacivanja {izbaceno}:")
+lista.stampa_normalno()              
+
+lista2 = DoublyLinkedList()
+for x in [1, 2, 3]:
+    lista2.append(x)
+
+izbaceno2 = lista2.prizbaciN(10)
+print(f"\nIzbačeno (traženo 10, lista imala 3): {izbaceno2}")
+lista2.stampa_normalno()              

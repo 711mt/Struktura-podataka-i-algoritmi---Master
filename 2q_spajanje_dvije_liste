@@ -1,0 +1,59 @@
+class Node:
+    def __init__(self, data):
+        self.data = data      
+        self.next = None      
+class LinkedList:
+    def __init__(self):
+        self.head = None    
+    def append(self, data):
+        novi = Node(data)
+        if self.head is None:
+            self.head = novi
+            return
+        trenutni = self.head
+        while trenutni.next is not None: 
+            trenutni = trenutni.next
+        trenutni.next = novi           
+    
+    def stampaj(self):
+        elementi = []
+        trenutni = self.head
+        while trenutni:
+            elementi.append(str(trenutni.data))
+            trenutni = trenutni.next
+        print(" -> ".join(elementi) if elementi else "prazna lista")
+    
+    def concat_lists(self, list2):
+        if self.head is None:
+            self.head = list2.head
+            return
+        trenutni = self.head
+        while trenutni.next is not None:
+            trenutni = trenutni.next
+        trenutni.next = list2.head
+
+list1 = LinkedList()
+for x in [1, 2, 5]:
+    list1.append(x)
+
+list2 = LinkedList()
+for x in [4, 7]:
+    list2.append(x)
+
+print("Prije:")
+list1.stampaj()         
+list2.stampaj()           
+
+list1.concat_lists(list2)
+
+print("Poslije:")
+list1.stampaj()  
+
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/2q_spajanje_dvije_liste"
+Prije:
+1 -> 2 -> 5
+4 -> 7
+Poslije:
+1 -> 2 -> 5 -> 4 -> 7
+'''

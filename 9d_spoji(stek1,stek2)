@@ -1,0 +1,42 @@
+# funkcija koja prima dva steka i kreira novi stek po pravilu da se u svakom koraku uzima manji od dva elementa 
+# sa vrha stekova, ako se jedan stek isprazni onda uzimamo ostatak iz drugog i ulazni stekovi moraju ostati 
+# nepromijenjeni po izlazu iz funkcije
+
+def spoji(stek1, stek2):
+    s1 = stek1.copy()
+    s2 = stek2.copy()
+    rezultat = [] 
+    while s1 and s2:
+        if s1[-1] <= s2[-1]:
+            rezultat.append(s1.pop())
+        else:
+            rezultat.append(s2.pop())
+    while s1:
+        rezultat.append(s1.pop())
+    while s2:
+        rezultat.append(s2.pop())
+    
+    return rezultat
+
+stek1 = [9, 7, 5, 3]
+stek2 = [8, 6, 4, 2]   
+original1 = stek1.copy()
+original2 = stek2.copy()
+
+novi = spoji(stek1, stek2)
+print("Novi stek (od dna ka vrhu):", novi)
+print("Vrh novog steka:", novi[-1])
+
+print("\nProvjera da ulazni stekovi nisu promijenjeni:")
+print("stek1 nepromijenjen:", stek1 == original1)
+print("stek2 nepromijenjen:", stek2 == original2)  
+
+'''
+ "c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/9d_spoji(stek1,stek2)"
+Novi stek (od dna ka vrhu): [2, 3, 4, 5, 6, 7, 8, 9]
+Vrh novog steka: 9
+
+Provjera da ulazni stekovi nisu promijenjeni:
+stek1 nepromijenjen: True
+stek2 nepromijenjen: True
+'''

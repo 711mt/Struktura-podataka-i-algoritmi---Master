@@ -1,0 +1,27 @@
+def sve_cifre_djelioci(m, n):
+    if m == 0:
+        return True
+    # Posljednja cifra broja m
+    cifra = m % 10
+    # cifra 0 ne može biti djelilac (izuzetak dijeljenja sa nulom)
+    # Pretpostavka: ako se u m pojavi nula, smatramo da uslov nije ispunjen
+    if cifra == 0:
+        return False
+    if n % cifra != 0:
+        return False
+    return sve_cifre_djelioci(m // 10, n)
+
+
+# Test
+print(sve_cifre_djelioci(223, 12))   
+print(sve_cifre_djelioci(217, 17))   
+print(sve_cifre_djelioci(124, 24))   
+print(sve_cifre_djelioci(124, 12))  
+
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/1s_sve_cifre_broja_m_djelioci_broja_n"
+True
+False
+True
+True
+'''

@@ -1,0 +1,23 @@
+# funkcija koja od dvije liste kreira trecu listu koja sadrzi samo elemente koji se pojavljuju u obje liste
+# primjer l1 = 1,3, 5, 7, 9
+# l2 = 2,3,5,8
+# presjek, tj. l3 = 3,5
+
+def intersection(l1, l2):
+    # 1) Sve elemente iz l1 stavimo u skup za brzu pretragu
+    elementi_l1 = set()
+    trenutni = l1.head
+    while trenutni is not None:
+        elementi_l1.add(trenutni.data)
+        trenutni = trenutni.next
+    # 2) Kreiramo praznu listu rezultata
+    #rezultat = LinkedList()
+    vec_dodato = set()    # da izbjegnemo duplikate u rezultatu
+    # 3) Prolazimo kroz l2 i provjeravamo da li je element u l1
+    trenutni = l2.head
+    while trenutni is not None:
+        if trenutni.data in elementi_l1 and trenutni.data not in vec_dodato:
+            #rezultat.append(trenutni.data)
+            vec_dodato.add(trenutni.data)
+        trenutni = trenutni.next
+    return #rezultat

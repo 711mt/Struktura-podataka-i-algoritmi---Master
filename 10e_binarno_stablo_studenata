@@ -1,0 +1,75 @@
+class StudentNode:
+    def __init__(self, ime, prosjek):
+        self.ime = ime
+        self.prosjek = prosjek
+        self.left = None
+        self.right = None
+def dodaj(root, novi_cvor):
+    if root is None:
+        return novi_cvor 
+    if novi_cvor.prosjek < root.prosjek:
+        root.left = dodaj(root.left, novi_cvor)
+    elif novi_cvor.prosjek > root.prosjek:
+        root.right = dodaj(root.right, novi_cvor)
+    return root
+
+def trazi(root, min_prosjek, rezultat=None):
+    if rezultat is None:
+        rezultat = []
+    if root is None:
+        return rezultat
+    if root.prosjek > min_prosjek:
+        rezultat.append(root.ime)
+    trazi(root.left, min_prosjek, rezultat)
+    trazi(root.right, min_prosjek, rezultat)
+    return rezultat
+
+def max_prosjek(root):
+    if root is None:
+        return None
+    while root.right is not None:
+        root = root.right
+    return root.ime
+
+def postorder(root):
+    if root is None:
+        return
+    postorder(root.left)                        
+    postorder(root.right)                       
+    print(f"  {root.ime} ({root.prosjek})")     
+
+root = None
+studenti = [
+    ("Marija",  9.5),
+    ("Petar",   8.2),
+    ("Jovana",  7.8),
+    ("Nikola",  9.7),
+    ("Ana",     8.1),
+    ("Stefan",  6.5),
+]
+for ime, prosjek in studenti:
+    root = dodaj(root, StudentNode(ime, prosjek))
+
+print("Studenti sa prosjekom > 8.0:")
+print(" ", trazi(root, 8.0))
+
+print(f"\nStudent sa najvećim prosjekom: {max_prosjek(root)}")
+
+print("\nPostorder obilazak stabla:")
+postorder(root)
+
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/10e_binarno_stablo_studenata"
+Studenti sa prosjekom > 8.0:
+  ['Marija', 'Petar', 'Ana', 'Nikola']
+
+Student sa najvećim prosjekom: Nikola
+
+Postorder obilazak stabla:
+  Stefan (6.5)
+  Ana (8.1)
+  Jovana (7.8)
+  Petar (8.2)
+  Nikola (9.7)
+  Marija (9.5)
+'''

@@ -1,0 +1,56 @@
+class StajalisteNode:
+    def __init__(self, naziv):
+        self.naziv = naziv
+        self.putnika_pri_polasku = 0
+        self.next = None
+class TramvajKruzna:
+    def __init__(self):
+        self.head = None 
+    def dodaj_stajaliste(self, naziv):
+        novi = StajalisteNode(naziv)
+        if self.head is None:
+            self.head = novi
+            novi.next = novi
+            return
+        t = self.head
+        while t.next != self.head:
+            t = t.next
+        t.next = novi
+        novi.next = self.head
+    def ispisi_trasu(self):
+        if self.head is None:
+            return
+        t = self.head
+        while True:
+            print(f"  {t.naziv}: {t.putnika_pri_polasku} putnika")
+            t = t.next
+            if t == self.head:
+                break
+    def simuliraj(self):
+        if self.head is None:
+            print("Nema stajališta.")
+            return
+        tramvaj_putnika = 0 
+        trenutno = self.head
+        broj_kruga = 1
+        while True:
+            zavrsi = input(f"Stajalište '{trenutno.naziv}'. "
+                           f"Završiti smjenu? (d/n): ").strip().lower()
+            if zavrsi == 'd':
+                print(f"Tramvaj završava smjenu na '{trenutno.naziv}'. "
+                      f"Izlazi {tramvaj_putnika} putnika.")
+                tramvaj_putnika = 0
+                trenutno.putnika_pri_polasku = 0
+                break
+            ulaz  = int(input("  Ulaz (broj putnika): "))
+            izlaz = int(input("  Izlaz (broj putnika): "))
+            if izlaz > tramvaj_putnika:
+                izlaz = tramvaj_putnika
+            tramvaj_putnika = tramvaj_putnika - izlaz + ulaz
+            trenutno.putnika_pri_polasku = tramvaj_putnika
+            trenutno = trenutno.next
+            if trenutno == self.head:
+                print(f"\nKraj kruga {broj_kruga} trasa tramvaja:")
+                self.ispisi_trasu()
+                print()
+                broj_kruga += 1

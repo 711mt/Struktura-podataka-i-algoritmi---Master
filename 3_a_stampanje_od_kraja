@@ -1,0 +1,53 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None 
+        self.next = None        
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None     
+        self.tail = None        
+
+    def append(self, data):
+        novi = Node(data)
+        if self.head is None:                
+            self.head = novi
+            self.tail = novi
+            return
+        novi.prev = self.tail           
+        self.tail.next = novi                 
+        self.tail = novi                      
+    
+    def stampa_normalno(self):
+        t = self.head
+        elementi = []
+        while t is not None:
+            elementi.append(str(t.data))
+            t = t.next
+        print(" -> ".join(elementi))
+
+    def stampa_od_kraja(self):
+        t = self.tail                          
+        elementi = []
+        while t is not None:
+            elementi.append(str(t.data))
+            t = t.prev                       
+        print(" -> ".join(elementi))
+
+lista = DoublyLinkedList()
+for x in [2, 45, 3, 1]:
+    lista.append(x)
+
+print("Lista normalno (od head):")
+lista.stampa_normalno()      
+
+print("Lista od kraja:")
+lista.stampa_od_kraja()  
+
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/3_a_stampanje_od_kraja"
+Lista normalno (od head):
+2 -> 45 -> 3 -> 1
+Lista od kraja:
+1 -> 3 -> 45 -> 2
+'''

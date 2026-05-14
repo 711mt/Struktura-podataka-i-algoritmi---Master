@@ -1,0 +1,93 @@
+class StudentNode:
+    def __init__(self, ime, prezime, godina, prosjek):
+        self.ime = ime
+        self.prezime = prezime
+        self.godina = godina
+        self.prosjek = prosjek
+        self.prev = None    
+        self.next = None      
+class StudentLista:
+    def __init__(self):
+        self.head = None  
+        self.tail = None       
+    
+    def append(self, ime, prezime, godina, prosjek):
+        novi = StudentNode(ime, prezime, godina, prosjek)
+        if self.head is None:              
+            self.head = novi
+            self.tail = novi
+            return
+        novi.prev = self.tail              
+        self.tail.next = novi               
+        self.tail = novi                    
+    
+    def stampaj(self):
+        t = self.head
+        while t is not None:
+            print(f"  [{t.ime} {t.prezime}, god.{t.godina}, prosjek {t.prosjek}]")
+            t = t.next
+    def studenti_iznad_prosjeka(self, granica):
+        rezultat = []
+        broj = 0
+        t = self.head
+        while t is not None:
+            if t.prosjek > granica:
+                rezultat.append(t)
+                broj += 1
+            t = t.next
+        return rezultat, broj
+    def stampa_prije_indeksa_unazad(self, indeks):
+        t = self.head
+        trenutni_indeks = 0
+        while t is not None and trenutni_indeks < indeks:
+            t = t.next
+            trenutni_indeks += 1
+        if t is None:
+            print("Indeks van opsega.")
+            return
+        elementi = []
+        p = t.prev
+        while p is not None:
+            elementi.append(f"{p.ime} {p.prezime}")
+            p = p.prev
+        print(" - ".join(elementi) if elementi else "(nema elemenata prije indeksa)")
+
+
+# === TEST ===
+lista = StudentLista()
+lista.append("Marija",  "Tomović",   2, 9.5)
+lista.append("Petar",   "Petrović",  1, 8.2)
+lista.append("Jovana",  "Jovanović", 3, 7.8)
+lista.append("Nikola",  "Nikolić",   2, 9.7)
+lista.append("Ana",     "Antić",     1, 8.1)
+
+print("Lista studenata:")
+lista.stampaj()
+
+print("\n(a) Studenti sa prosjekom iznad 8.0:")
+iznad, broj = lista.studenti_iznad_prosjeka(8.0)
+for s in iznad:
+    print(f"  {s.ime} {s.prezime} - prosjek {s.prosjek}")
+print(f"  Ukupno: {broj} studenata")
+print("\n(b) Elementi prije indeksa 3, u obrnutom poretku:")
+lista.stampa_prije_indeksa_unazad(3)
+
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/7_dvostruka_lista_studenata"
+Lista studenata:
+  [Marija Tomović, god.2, prosjek 9.5]
+  [Petar Petrović, god.1, prosjek 8.2]
+  [Jovana Jovanović, god.3, prosjek 7.8]
+  [Nikola Nikolić, god.2, prosjek 9.7]
+  [Ana Antić, god.1, prosjek 8.1]
+
+(a) Studenti sa prosjekom iznad 8.0:
+  Marija Tomović - prosjek 9.5
+  Petar Petrović - prosjek 8.2
+  Nikola Nikolić - prosjek 9.7
+  Ana Antić - prosjek 8.1
+  Ukupno: 4 studenata
+
+(b) Elementi prije indeksa 3, u obrnutom poretku:
+Jovana Jovanović - Petar Petrović - Marija Tomović
+'''

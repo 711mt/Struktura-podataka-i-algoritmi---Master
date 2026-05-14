@@ -1,0 +1,27 @@
+# Klasican rekurzivan problem gdje imamo 3 stapa (A,B,C) i n diskova poredjanih po velicini na prvom stapu (najveci dolje)
+# Treba ih prebaciti na stap 3, uz pravila da pomjeramo samo jedan disk u jednom koraku i da veci disk nikad ne smije biti iznad manjeg
+
+def hanoi(n, izvor, pomocni, cilj):
+    if n == 1:
+        print(f"Premjesti disk 1 sa {izvor} na {cilj}")
+        return
+    # KORAK 1: prebaci (n-1) diskova sa izvora na pomoćni štap
+    hanoi(n - 1, izvor, cilj, pomocni)
+    # KORAK 2: premjesti najveći (n-ti) disk sa izvora na cilj
+    print(f"Premjesti disk {n} sa {izvor} na {cilj}")
+    # KORAK 3: prebaci (n-1) diskova sa pomoćnog na cilj
+    hanoi(n - 1, pomocni, izvor, cilj)
+
+# Test za 3 diska
+hanoi(3, 'A', 'B', 'C')
+
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/1l_tower_of_hanoi"
+Premjesti disk 1 sa A na C
+Premjesti disk 2 sa A na B
+Premjesti disk 1 sa C na B
+Premjesti disk 3 sa A na C
+Premjesti disk 1 sa B na A
+Premjesti disk 2 sa B na C
+Premjesti disk 1 sa A na C
+'''
