@@ -1,0 +1,24 @@
+# funkcija koja rekurzivno pronalazi najveci element u listi brojeva
+def najveci(lista):
+    if len(lista) == 1:
+        return lista[0]
+    najveci_ostatak = najveci(lista[1:])
+  
+    if lista[0] > najveci_ostatak:
+        return lista[0]
+    else:
+        return najveci_ostatak
+
+
+# Test
+print(najveci([3, 1, 4, 1, 5, 9, 2, 6]))
+print(najveci([-10, -2, -7]))            
+print(najveci([42]))                       
+
+# Rezultati testa
+'''
+"c:/Users/adminPC/Documents/fakultet 24_25/SPA/D2/1f_najveci_element_liste"
+9
+-2
+42
+'''
